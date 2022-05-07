@@ -4,6 +4,15 @@ body {
     align-items: center;
 }
 
+textarea {
+    background-color: #000000;
+    color: #00fff2;
+}
+
+textarea::placeholder {
+    color: #00fff2;
+}
+
 @keyframes vision {
     from {
         color: red;
@@ -29,11 +38,10 @@ span {
     gap: 10px 0px;
     background-color: #000000;
     padding: 8px;
-    width: 676px;
+    width: 723px;
 }
 
-.row,
-.upnumbers-keys-container {
+.row {
     display: flex;
     gap: 8px;
 }
@@ -66,7 +74,7 @@ span {
     align-items: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 25px;
-    width: 46px;
+    width: 70px;
     height: 40px;
     background-color: #00fff2;
 }
@@ -77,7 +85,7 @@ span {
     align-items: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 18px;
-    width: 63px;
+    width: 83px;
     height: 40px;
     background-color: #00fff2;
 }
@@ -88,7 +96,7 @@ span {
     align-items: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 18px;
-    width: 77px;
+    width: 105px;
     height: 40px;
     background-color: #00fff2;
 }
@@ -99,7 +107,51 @@ span {
     align-items: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 18px;
-    width: 77px;
+    width: 108px;
+    height: 40px;
+    background-color: #00fff2;
+}
+
+.shift-two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 80px;
+    height: 40px;
+    background-color: #00fff2;
+}
+
+.ctrl-alt-win {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 60px;
+    height: 40px;
+    background-color: #00fff2;
+}
+
+.space {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 404px;
+    height: 40px;
+    background-color: #00fff2;
+}
+
+.ctrl-two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    width: 32px;
     height: 40px;
     background-color: #00fff2;
 }

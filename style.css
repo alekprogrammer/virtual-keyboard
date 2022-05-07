@@ -4,6 +4,25 @@ body {
     align-items: center;
 }
 
+@keyframes vision {
+    from {
+        color: red;
+    }
+    to {
+        color: black;
+    }
+}
+
+h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+span {
+    animation-name: vision;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+}
+
 .keyboard {
     display: flex;
     flex-wrap: wrap;
@@ -39,7 +58,6 @@ body {
     font-size: 18px;
     width: 100px;
     height: 40px;
-    margin-left: 8px;
 }
 
 .tab-slash {
@@ -49,6 +67,39 @@ body {
     font-family: 'Courier New', Courier, monospace;
     font-size: 25px;
     width: 46px;
+    height: 40px;
+    background-color: #00fff2;
+}
+
+.caps-lock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 63px;
+    height: 40px;
+    background-color: #00fff2;
+}
+
+.enter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 77px;
+    height: 40px;
+    background-color: #00fff2;
+}
+
+.shift {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 77px;
     height: 40px;
     background-color: #00fff2;
 }

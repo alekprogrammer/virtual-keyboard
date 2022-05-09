@@ -1,10 +1,26 @@
 const text = "Virtual Keyboard by alekprogrammer";
 const title = document.createElement("h1");
-
+let allKeys = {};
+window.addEventListener("keydown", function(event) {
+    allKeys[event.key].classList.add("animation-radius");
+    setTimeout(() => allKeys[event.key].classList.remove("animation-radius"), 300);
+    setTimeout(() => allKeys[event.key].classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => allKeys[event.key].classList.remove("animation-radius-reverse"), 600)
+    TEXTINPUT.value += event.key;
+}, true);
+let allkeys = [];
 class Methods {
     static addelemtopage(elem, clas, inn, row) {
         elem.classList.add(clas);
         elem.innerHTML = inn;
+        elem.addEventListener('click', function() {
+            TEXTINPUT.value += elem.innerHTML
+            elem.classList.add("animation-radius");
+            setTimeout(() => elem.classList.remove("animation-radius"), 300);
+            setTimeout(() => elem.classList.add("animation-radius-reverse"), 300)
+            setTimeout(() => elem.classList.remove("animation-radius-reverse"), 600)
+        })
+        allKeys[inn] = elem;
         row.append(elem);
     }
     static addrowtopage(rowelem) {

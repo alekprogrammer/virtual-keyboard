@@ -345,3 +345,8 @@ window.addEventListener("keydown", function(event) {
         TEXTINPUT.value += "    ";
     }
 }, true);
+
+let infor = document.createElement("p")
+infor.innerHTML = "Клавиатура создана в ОС Windows\n\nДля переключения языка используйте CTRL + ALT"
+
+document.body.append(infor);

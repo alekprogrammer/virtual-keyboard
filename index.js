@@ -3,11 +3,11 @@ const title = document.createElement("h1");
 let allKeys = {};
 console.log(allKeys)
 let g;
-if (localStorage.hasOwnProperty('Results')) {
+if (localStorage.hasOwnProperty('language')) {
+    g = localStorage.getItem("language");
+} else {
     localStorage.setItem("language", "en");
     g = "en";
-} else {
-    g = localStorage.getItem("language");
 }
 let modifychars = {
     "en": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
@@ -352,14 +352,6 @@ window.addEventListener("keydown", function(event) {
 window.addEventListener("keydown", function(event) {
     console.log(event.code)
 }, true);
-
-// window.addEventListener("keyup", function(event) {
-//     if (event.code == "CapsLock") {
-//         for (elem of modifychars) {
-//             allKeys[elem].innerHTML = allKeys[elem].innerHTML.toLowerCase();
-//         }
-//     }
-// })
 
 console.log(mainPartKeyboard);
 console.log(modifychars[g]);

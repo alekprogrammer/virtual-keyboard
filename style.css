@@ -121,6 +121,21 @@ span {
     transition: 0.3s;
 }
 
+.caps-lock.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 83px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 50px;
+    transform: scale(1, 0.5);
+}
+
 .enter {
     display: flex;
     justify-content: center;

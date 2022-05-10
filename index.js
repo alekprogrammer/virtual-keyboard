@@ -2,7 +2,18 @@ const text = "Virtual Keyboard by alekprogrammer";
 const title = document.createElement("h1");
 let allKeys = {};
 console.log(allKeys)
-
+let g;
+if (localStorage.hasOwnProperty('Results')) {
+    localStorage.setItem("language", "en");
+    g = "en";
+} else {
+    g = localStorage.getItem("language");
+}
+let modifychars = {
+    "en": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
+    "ru": ["й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "."]
+};
+let modifyedcontentOffShift = [];
 let allkeys = [];
 class Methods {
     static addelemtopage(elem, clas, inn, row) {
@@ -30,15 +41,15 @@ TEXTINPUT.setAttribute("rows", 10)
 TEXTINPUT.setAttribute("cols", 96)
 TEXTINPUT.setAttribute("placeholder", "Write something...")
 
-let spans = [];
+let modifyedRowUpper = [];
 for (let i = 0; i < text.length; i++) {
-    spans.push(document.createElement("span"))
-    spans[i].innerHTML = text[i];
-    title.append(spans[i]);
+    modifyedRowUpper.push(document.createElement("span"))
+    modifyedRowUpper[i].innerHTML = text[i];
+    title.append(modifyedRowUpper[i]);
 }
 let delay = 0;
-for (let i = 0; i < spans.length; i++) {
-    spans[i].style.animationDelay = delay + "s";
+for (let i = 0; i < modifyedRowUpper.length; i++) {
+    modifyedRowUpper[i].style.animationDelay = delay + "s";
     delay = delay + 0.2;
 }
 document.body.append(title);
@@ -51,6 +62,7 @@ Methods.addrowtopage(row_1)
 const fKeys = [];
 const backtick = document.createElement("div");
 Methods.addelemtopage(backtick, "standart-key", "`", row_1)
+modifyedRowUpper.unshift(backtick)
 console.log(row_1)
 
 
@@ -75,22 +87,32 @@ Methods.addelemtopage(backspace, "backspace", "BACKSPACE", row_1)
 
 document.body.append(KEYBOARD);
 
-let modifychars = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"];
-
 const TAB = document.createElement("div")
-Methods.addelemtopage(TAB, "tab-slash", "TAB", row_1)
+
 let mainPartKeyboard = [];
 const row_2 = document.createElement("div")
 Methods.addrowtopage(row_2)
-row_2.append(TAB)
+
+TAB.classList.add("tab-slash");
+TAB.innerHTML = "TAB";
+TAB.addEventListener('click', function() {
+    TAB.classList.add("animation-radius");
+    setTimeout(() => TAB.classList.remove("animation-radius"), 300);
+    setTimeout(() => TAB.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => TAB.classList.remove("animation-radius-reverse"), 600)
+    TEXTINPUT.value += "    ";
+})
+allKeys["TAB"] = TAB;
+row_2.append(TAB);
+
 
 for (let i = 0; i < 12; i++) {
     mainPartKeyboard.push(document.createElement("div"));
-    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[i], row_2)
+    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_2)
 }
 
 const slashKey = document.createElement("div");
-Methods.addelemtopage(slashKey, "tab-slash", "/", row_2)
+Methods.addelemtopage(slashKey, "tab-slash", "\\", row_2)
 
 Methods.addrowtopage(row_2)
 
@@ -99,26 +121,69 @@ Methods.addrowtopage(row_3)
 
 
 const CAPSLOCK = document.createElement("div");
-Methods.addelemtopage(CAPSLOCK, "caps-lock", "CAPS<br>LOCK", row_3)
+
+
+CAPSLOCK.classList.add("caps-lock");
+CAPSLOCK.innerHTML = "CAPS<br>LOCK";
+CAPSLOCK.addEventListener('click', function() {
+    if (CAPSLOCK.classList.contains("active")) {
+        CAPSLOCK.classList.add("animation-radius-reverse");
+        CAPSLOCK.classList.remove("animation-radius-reverse");
+        CAPSLOCK.classList.remove("active");
+        for (elem of modifychars[g]) {
+            allKeys[elem].innerHTML = allKeys[elem].innerHTML.toLowerCase();
+        }
+    } else {
+        CAPSLOCK.classList.add("animation-radius");
+        setTimeout(() => CAPSLOCK.classList.remove("animation-radius"), 300);
+        setTimeout(() => CAPSLOCK.classList.add("active"), 300)
+        for (elem of modifychars[g]) {
+            allKeys[elem].innerHTML = allKeys[elem].innerHTML.toUpperCase();
+        }
+    }
+})
+allKeys["CAPS<br>LOCK"] = CAPSLOCK;
+row_3.append(CAPSLOCK);
 
 
 for (let i = 12; i < 23; i++) {
     mainPartKeyboard.push(document.createElement("div"));
-    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[i], row_3)
+    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_3)
 }
 
 const ENTER = document.createElement("div");
-Methods.addelemtopage(ENTER, "enter", "ENTER", row_3)
+
+ENTER.classList.add("enter");
+ENTER.innerHTML = "ENTER";
+ENTER.addEventListener('click', function() {
+    ENTER.classList.add("animation-radius");
+    setTimeout(() => ENTER.classList.remove("animation-radius"), 300);
+    setTimeout(() => ENTER.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => ENTER.classList.remove("animation-radius-reverse"), 600)
+    TEXTINPUT.value += "\n"
+})
+allKeys["ENTER"] = ENTER;
+row_3.append(ENTER);
 
 const row_4 = document.createElement("div");
 Methods.addrowtopage(row_4)
 
 const SHIFT = document.createElement("div");
-Methods.addelemtopage(SHIFT, "shift", "SHIFT", row_4)
 
-for (let i = 23; i < modifychars.length; i++) {
+SHIFT.classList.add("shift");
+SHIFT.innerHTML = "SHIFT";
+SHIFT.addEventListener('click', function() {
+    SHIFT.classList.add("animation-radius");
+    setTimeout(() => SHIFT.classList.remove("animation-radius"), 300);
+    setTimeout(() => SHIFT.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => SHIFT.classList.remove("animation-radius-reverse"), 600)
+})
+allKeys["SHIFT"] = SHIFT;
+row_4.append(SHIFT);
+
+for (let i = 23; i < modifychars[g].length; i++) {
     mainPartKeyboard.push(document.createElement("div"));
-    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[i], row_4)
+    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_4)
 }
 
 
@@ -126,21 +191,60 @@ const arrowUp = document.createElement("div");
 Methods.addelemtopage(arrowUp, "standart-key", "↑", row_4)
 
 const SHIFT2 = document.createElement("div");
-Methods.addelemtopage(SHIFT2, "shift-two", "SHIFT", row_4)
 
-
+SHIFT2.classList.add("shift-two");
+SHIFT2.innerHTML = "SHIFT";
+SHIFT2.addEventListener('click', function() {
+    SHIFT2.classList.add("animation-radius");
+    setTimeout(() => SHIFT2.classList.remove("animation-radius"), 300);
+    setTimeout(() => SHIFT2.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => SHIFT2.classList.remove("animation-radius-reverse"), 600)
+})
+allKeys["SHIFT"] = SHIFT2;
+row_4.append(SHIFT2);
 
 const row_5 = document.createElement("div");
 Methods.addrowtopage(row_5)
 
 const CTRL = document.createElement("div");
-Methods.addelemtopage(CTRL, "ctrl-alt-win", "CTRL", row_5)
+
+CTRL.classList.add("ctrl-alt-win");
+CTRL.innerHTML = "CTRL";
+CTRL.addEventListener('click', function() {
+    CTRL.classList.add("animation-radius");
+    setTimeout(() => CTRL.classList.remove("animation-radius"), 300);
+    setTimeout(() => CTRL.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => CTRL.classList.remove("animation-radius-reverse"), 600)
+})
+allKeys["CTRL"] = CTRL;
+row_5.append(CTRL);
 
 const ALT = document.createElement("div");
-Methods.addelemtopage(ALT, "ctrl-alt-win", "ALT", row_5);
+
+ALT.classList.add("ctrl-alt-win");
+ALT.innerHTML = "ALT";
+ALT.addEventListener('click', function() {
+    ALT.classList.add("animation-radius");
+    setTimeout(() => ALT.classList.remove("animation-radius"), 300);
+    setTimeout(() => ALT.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => ALT.classList.remove("animation-radius-reverse"), 600)
+})
+allKeys["ALT"] = ALT;
+row_5.append(ALT);
 
 const SPACE = document.createElement("div");
-Methods.addelemtopage(SPACE, "space", "", row_5);
+
+SPACE.classList.add("space");
+SPACE.innerHTML = "";
+SPACE.addEventListener('click', function() {
+    SPACE.classList.add("animation-radius");
+    setTimeout(() => SPACE.classList.remove("animation-radius"), 300);
+    setTimeout(() => SPACE.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => SPACE.classList.remove("animation-radius-reverse"), 600)
+    TEXTINPUT.value += " ";
+})
+allKeys[""] = SPACE;
+row_5.append(SPACE);
 
 const arrowLeft = document.createElement("div");
 Methods.addelemtopage(arrowLeft, "standart-key", "←", row_5);
@@ -152,7 +256,19 @@ const arrowRight = document.createElement("div");
 Methods.addelemtopage(arrowRight, "standart-key", "→", row_5);
 
 const CTRL2 = document.createElement("div");
-Methods.addelemtopage(CTRL2, "ctrl-two", "CTRL", row_5);
+// Methods.addelemtopage(CTRL2, "ctrl-two", "CTRL", row_5);
+
+CTRL2.classList.add("ctrl-two");
+CTRL2.innerHTML = "CTRL";
+CTRL2.addEventListener('click', function() {
+    CTRL2.classList.add("animation-radius");
+    setTimeout(() => CTRL2.classList.remove("animation-radius"), 300);
+    setTimeout(() => CTRL2.classList.add("animation-radius-reverse"), 300)
+    setTimeout(() => CTRL2.classList.remove("animation-radius-reverse"), 600)
+})
+allKeys["CTRL2"] = CTRL2;
+row_5.append(CTRL2);
+
 window.onload = function() {
     TEXTINPUT.focus();
 }
@@ -162,14 +278,6 @@ TEXTINPUT.addEventListener("keydown", function(e) {
     e.preventDefault();
 }, false);
 
-let isFocus = "nofocus";
-TEXTINPUT.addEventListener('focus', function() {
-    isFocus = "focus";
-})
-
-TEXTINPUT.addEventListener('blur', function() {
-    isFocus = "nofocus";
-})
 
 
 
@@ -180,6 +288,13 @@ window.addEventListener("keydown", function(event) {
         setTimeout(() => allKeys[event.code[event.code.length - 1].toLowerCase()].classList.add("animation-radius-reverse"), 300)
         setTimeout(() => allKeys[event.code[event.code.length - 1].toLowerCase()].classList.remove("animation-radius-reverse"), 600)
         TEXTINPUT.value += allKeys[event.code[event.code.length - 1].toLowerCase()].innerHTML;
+    } else if (event.code == "ArrowUp" || event.code == "ArrowDown" || event.code == "ArrowRight" || event.code == "ArrowLeft") {
+        let currectarrow = event.code == "ArrowUp" ? "↑" : event.code == "ArrowDown" ? "↓" : event.code == "ArrowRight" ? "→" : "←"
+        allKeys[currectarrow].classList.add("animation-radius");
+        setTimeout(() => allKeys[currectarrow].classList.remove("animation-radius"), 300);
+        setTimeout(() => allKeys[currectarrow].classList.add("animation-radius-reverse"), 300)
+        setTimeout(() => allKeys[currectarrow].classList.remove("animation-radius-reverse"), 600)
+        TEXTINPUT.value += allKeys[currectarrow].innerHTML;
     } else if (event.code == "Backquote") {
         backtick.classList.add("animation-radius");
         setTimeout(() => backtick.classList.remove("animation-radius"), 300);
@@ -187,8 +302,16 @@ window.addEventListener("keydown", function(event) {
         setTimeout(() => backtick.classList.remove("animation-radius-reverse"), 600)
         TEXTINPUT.value += backtick.innerHTML;
     } else if (event.ctrlKey && event.altKey) {
-        console.log("hello");
+        g = g == "en" ? "ru" : "en";
+        console.log(true);
+        for (let i = 0; i < modifychars[g].length; i++) {
+            mainPartKeyboard[i].innerHTML = modifychars[g][i];
+        }
     } else if (event.code == "Enter") {
+        ENTER.classList.add("animation-radius");
+        setTimeout(() => ENTER.classList.remove("animation-radius"), 300);
+        setTimeout(() => ENTER.classList.add("animation-radius-reverse"), 300)
+        setTimeout(() => ENTER.classList.remove("animation-radius-reverse"), 600)
         TEXTINPUT.value += "\n"
     } else if (event.code == "Backspace") {
         allKeys.BACKSPACE.classList.add("animation-radius");
@@ -196,14 +319,47 @@ window.addEventListener("keydown", function(event) {
         setTimeout(() => allKeys.BACKSPACE.classList.add("animation-radius-reverse"), 300)
         setTimeout(() => allKeys.BACKSPACE.classList.remove("animation-radius-reverse"), 600)
         TEXTINPUT.value = TEXTINPUT.value.slice(0, TEXTINPUT.value.length - 1);
+    } else if (event.code == "CapsLock") {
+        if (CAPSLOCK.classList.contains("active")) {
+            CAPSLOCK.classList.add("animation-radius-reverse");
+            CAPSLOCK.classList.remove("animation-radius-reverse");
+            CAPSLOCK.classList.remove("active");
+            for (elem of modifychars[g]) {
+                allKeys[elem].innerHTML = allKeys[elem].innerHTML.toLowerCase();
+            }
+        } else {
+            CAPSLOCK.classList.add("animation-radius");
+            setTimeout(() => CAPSLOCK.classList.remove("animation-radius"), 300);
+            setTimeout(() => CAPSLOCK.classList.add("active"), 300)
+            for (elem of modifychars[g]) {
+                allKeys[elem].innerHTML = allKeys[elem].innerHTML.toUpperCase();
+            }
+        }
+    } else if (event.code == "Space") {
+        SPACE.classList.add("animation-radius");
+        setTimeout(() => SPACE.classList.remove("animation-radius"), 300);
+        setTimeout(() => SPACE.classList.add("animation-radius-reverse"), 300)
+        setTimeout(() => SPACE.classList.remove("animation-radius-reverse"), 600)
+        TEXTINPUT.value += " ";
+    } else if (event.code == "Tab") {
+        TAB.classList.add("animation-radius");
+        setTimeout(() => TAB.classList.remove("animation-radius"), 300);
+        setTimeout(() => TAB.classList.add("animation-radius-reverse"), 300)
+        setTimeout(() => TAB.classList.remove("animation-radius-reverse"), 600)
+        TEXTINPUT.value += "    ";
     }
 }, true);
 window.addEventListener("keydown", function(event) {
-    console.log(event.key)
-    console.log(event.code[event.code.length - 1].toLowerCase())
     console.log(event.code)
 }, true);
 
+// window.addEventListener("keyup", function(event) {
+//     if (event.code == "CapsLock") {
+//         for (elem of modifychars) {
+//             allKeys[elem].innerHTML = allKeys[elem].innerHTML.toLowerCase();
+//         }
+//     }
+// })
 
-console.log(mainPartKeyboard)
-console.log(modifychars);
+console.log(mainPartKeyboard);
+console.log(modifychars[g]);

@@ -1,7 +1,6 @@
 const text = "Virtual Keyboard by alekprogrammer";
 const title = document.createElement("h1");
 let allKeys = {};
-console.log(allKeys)
 let g;
 if (localStorage.hasOwnProperty('language')) {
     g = localStorage.getItem("language");
@@ -63,8 +62,6 @@ const fKeys = [];
 const backtick = document.createElement("div");
 Methods.addelemtopage(backtick, "standart-key", "`", row_1)
 modifyedRowUpper.unshift(backtick)
-console.log(row_1)
-
 
 
 for (let i = 0; i < 9; i++) {
@@ -303,7 +300,6 @@ window.addEventListener("keydown", function(event) {
         TEXTINPUT.value += backtick.innerHTML;
     } else if (event.ctrlKey && event.altKey) {
         g = g == "en" ? "ru" : "en";
-        console.log(true);
         for (let i = 0; i < modifychars[g].length; i++) {
             mainPartKeyboard[i].innerHTML = modifychars[g][i];
         }
@@ -349,9 +345,8 @@ window.addEventListener("keydown", function(event) {
         TEXTINPUT.value += "    ";
     }
 }, true);
-window.addEventListener("keydown", function(event) {
-    console.log(event.code)
-}, true);
 
-console.log(mainPartKeyboard);
-console.log(modifychars[g]);
+let infor = document.createElement("p")
+infor.innerHTML = "Клавиатура создана в ОС Windows\n\nДля переключения языка используйте CTRL + ALT"
+
+document.body.append(infor);

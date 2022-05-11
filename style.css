@@ -37,6 +37,8 @@ textarea::placeholder {
     animation-name: radius;
     animation-duration: 0.3s;
     animation-direction: normal;
+    border-radius: 50px;
+    transform: scale(1, 0.5);
 }
 
 .animation-radius-reverse {

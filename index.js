@@ -412,10 +412,3 @@ infor.setAttribute("align", "center");
 infor.innerText = "Клавиатура создана в ОС Windows\n\nДля переключения языка используйте CTRL + ALT";
 
 document.body.append(infor);
-window.addEventListener("keydown", function(event) {
-    console.log(event.code)
-})
-console.log("allKeys")
-console.log(allKeys)
-console.log("mainPartKeyboard")
-console.log(mainPartKeyboard)

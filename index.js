@@ -15,7 +15,7 @@ let modifychars = {
 let modifyedcontentOffShift = [];
 let allkeys = [];
 class Methods {
-    static addelemtopage(elem, clas, inn, row) {
+    static addelemtopage(elem, clas, inn, row, k) {
         elem.classList.add(clas);
         elem.innerHTML = inn;
         elem.addEventListener("click", function() {
@@ -25,8 +25,13 @@ class Methods {
             setTimeout(() => elem.classList.add("animation-radius-reverse"), 300);
             setTimeout(() => elem.classList.remove("animation-radius-reverse"), 600);
         });
-        allKeys[inn] = elem;
-        row.append(elem);
+        if (/\d/.test(inn) || inn == "↓" || inn == "→" || inn == "←" || inn == "↑") {
+            allKeys[inn] = elem;
+            row.append(elem);
+        } else {
+            allKeys[modifychars.en[k]] = elem;
+            row.append(elem);
+        }
     }
     static addrowtopage(rowelem) {
         rowelem.classList.add("row");
@@ -116,7 +121,7 @@ row_2.append(TAB);
 
 for (let i = 0; i < 12; i++) {
     mainPartKeyboard.push(document.createElement("div"));
-    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_2);
+    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_2, i);
 }
 
 const slashKey = document.createElement("div");
@@ -138,14 +143,14 @@ CAPSLOCK.addEventListener("click", function() {
         CAPSLOCK.classList.add("animation-radius-reverse");
         CAPSLOCK.classList.remove("animation-radius-reverse");
         CAPSLOCK.classList.remove("active");
-        for (elem of modifychars[g]) {
+        for (elem of modifychars.en) {
             allKeys[elem].innerHTML = allKeys[elem].innerHTML.toLowerCase();
         }
     } else {
         CAPSLOCK.classList.add("animation-radius");
         setTimeout(() => CAPSLOCK.classList.remove("animation-radius"), 300);
         setTimeout(() => CAPSLOCK.classList.add("active"), 300);
-        for (elem of modifychars[g]) {
+        for (elem of modifychars.en) {
             allKeys[elem].innerHTML = allKeys[elem].innerHTML.toUpperCase();
         }
     }
@@ -156,7 +161,7 @@ row_3.append(CAPSLOCK);
 
 for (let i = 12; i < 23; i++) {
     mainPartKeyboard.push(document.createElement("div"));
-    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_3);
+    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_3, i);
 }
 
 const ENTER = document.createElement("div");
@@ -191,7 +196,7 @@ row_4.append(SHIFT);
 
 for (let i = 23; i < modifychars[g].length; i++) {
     mainPartKeyboard.push(document.createElement("div"));
-    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_4);
+    Methods.addelemtopage(mainPartKeyboard[i], "standart-key", modifychars[g][i], row_4, i);
 }
 
 
@@ -309,11 +314,56 @@ window.addEventListener("keydown", function(event) {
         setTimeout(() => backtick.classList.add("animation-radius-reverse"), 300);
         setTimeout(() => backtick.classList.remove("animation-radius-reverse"), 600);
         TEXTINPUT.value += backtick.innerHTML;
+    } else if (event.code == "Minus") {
+        fKeys[10].classList.add("animation-radius");
+        setTimeout(() => fKeys[10].classList.remove("animation-radius"), 300);
+        setTimeout(() => fKeys[10].classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => fKeys[10].classList.remove("animation-radius-reverse"), 600);
+        TEXTINPUT.value += fKeys[10].innerHTML;
+    } else if (event.code == "Equal") {
+        fKeys[11].classList.add("animation-radius");
+        setTimeout(() => fKeys[11].classList.remove("animation-radius"), 300);
+        setTimeout(() => fKeys[11].classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => fKeys[11].classList.remove("animation-radius-reverse"), 600);
+        TEXTINPUT.value += fKeys[11].innerHTML;
+    } else if (event.code == "BracketLeft") {
+        mainPartKeyboard[10].classList.add("animation-radius");
+        setTimeout(() => mainPartKeyboard[10].classList.remove("animation-radius"), 300);
+        setTimeout(() => mainPartKeyboard[10].classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => mainPartKeyboard[10].classList.remove("animation-radius-reverse"), 600);
+        TEXTINPUT.value += mainPartKeyboard[10].innerHTML;
+    } else if (event.code == "BracketRight") {
+        mainPartKeyboard[11].classList.add("animation-radius");
+        setTimeout(() => mainPartKeyboard[11].classList.remove("animation-radius"), 300);
+        setTimeout(() => mainPartKeyboard[11].classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => mainPartKeyboard[11].classList.remove("animation-radius-reverse"), 600);
+        TEXTINPUT.value += mainPartKeyboard[11].innerHTML;
     } else if (event.ctrlKey && event.altKey) {
         g = g == "en" ? "ru" : "en";
+        localStorage.setItem("language", g);
         for (let i = 0; i < modifychars[g].length; i++) {
             mainPartKeyboard[i].innerHTML = modifychars[g][i];
         }
+    } else if (event.code == "ControlLeft") {
+        CTRL.classList.add("animation-radius");
+        setTimeout(() => CTRL.classList.remove("animation-radius"), 300);
+        setTimeout(() => CTRL.classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => CTRL.classList.remove("animation-radius-reverse"), 600);
+    } else if (event.code == "ControlRight") {
+        CTRL2.classList.add("animation-radius");
+        setTimeout(() => CTRL2.classList.remove("animation-radius"), 300);
+        setTimeout(() => CTRL2.classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => CTRL2.classList.remove("animation-radius-reverse"), 600);
+    } else if (event.code == "ShiftLeft") {
+        SHIFT.classList.add("animation-radius");
+        setTimeout(() => SHIFT.classList.remove("animation-radius"), 300);
+        setTimeout(() => SHIFT.classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => SHIFT.classList.remove("animation-radius-reverse"), 600);
+    } else if (event.code == "AltLeft") {
+        ALT.classList.add("animation-radius");
+        setTimeout(() => ALT.classList.remove("animation-radius"), 300);
+        setTimeout(() => ALT.classList.add("animation-radius-reverse"), 300);
+        setTimeout(() => ALT.classList.remove("animation-radius-reverse"), 600);
     } else if (event.code == "Enter") {
         ENTER.classList.add("animation-radius");
         setTimeout(() => ENTER.classList.remove("animation-radius"), 300);
@@ -331,14 +381,14 @@ window.addEventListener("keydown", function(event) {
             CAPSLOCK.classList.add("animation-radius-reverse");
             CAPSLOCK.classList.remove("animation-radius-reverse");
             CAPSLOCK.classList.remove("active");
-            for (elem of modifychars[g]) {
+            for (elem of modifychars.en) {
                 allKeys[elem].innerHTML = allKeys[elem].innerHTML.toLowerCase();
             }
         } else {
             CAPSLOCK.classList.add("animation-radius");
             setTimeout(() => CAPSLOCK.classList.remove("animation-radius"), 300);
             setTimeout(() => CAPSLOCK.classList.add("active"), 300);
-            for (elem of modifychars[g]) {
+            for (elem of modifychars.en) {
                 allKeys[elem].innerHTML = allKeys[elem].innerHTML.toUpperCase();
             }
         }
@@ -362,3 +412,10 @@ infor.setAttribute("align", "center");
 infor.innerText = "Клавиатура создана в ОС Windows\n\nДля переключения языка используйте CTRL + ALT";
 
 document.body.append(infor);
+window.addEventListener("keydown", function(event) {
+    console.log(event.code)
+})
+console.log("allKeys")
+console.log(allKeys)
+console.log("mainPartKeyboard")
+console.log(mainPartKeyboard)

@@ -1,0 +1,231 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+textarea {
+    background-color: #000000;
+    color: #00fff2;
+}
+
+textarea::placeholder {
+    color: #00fff2;
+}
+
+@keyframes vision {
+    from {
+        color: red;
+    }
+    to {
+        color: black;
+    }
+}
+
+@keyframes radius {
+    from {
+        border-radius: 0px;
+        transform: scale(1);
+    }
+    to {
+        border-radius: 50px;
+        transform: scale(1, 0.5);
+    }
+}
+
+.animation-radius {
+    animation-name: radius;
+    animation-duration: 0.3s;
+    animation-direction: normal;
+    border-radius: 50px;
+    transform: scale(1, 0.5);
+}
+
+.animation-radius-reverse {
+    animation-name: radius;
+    animation-duration: 0.3s;
+    animation-direction: reverse;
+}
+
+h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+span {
+    animation-name: vision;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 0px;
+    background-color: #000000;
+    padding: 8px;
+    width: 723px;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+}
+
+.standart-key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    width: 40px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.backspace {
+    background-color: #00fff2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-slash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    width: 70px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.caps-lock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 83px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.caps-lock.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 83px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 50px;
+    transform: scale(1, 0.5);
+}
+
+.enter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 105px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.shift {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 108px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.shift-two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 80px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ctrl-alt-win {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 60px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.space {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    width: 404px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ctrl-two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    width: 32px;
+    height: 40px;
+    background-color: #00fff2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.standart-key:hover,
+.backspace:hover,
+.tab-slash:hover,
+.caps-lock:hover,
+.enter:hover,
+.shift:hover,
+.shift-two:hover,
+.ctrl-alt-win:hover,
+.space:hover,
+.ctrl-two:hover {
+    background-color: #204b49;
+    color: #FFFFFF;
+}

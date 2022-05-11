@@ -1,0 +1,6 @@
+{
+    "name": "virtual-keyboard",
+    "devDependencies": {
+        "eslint": "^8.2.0"
+    }
+}
